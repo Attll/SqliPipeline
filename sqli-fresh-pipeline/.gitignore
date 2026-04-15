@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.streamlit/
+artifacts/*.joblib
+artifacts/models/
+artifacts/holdout_test.csv
+reports/*.json
+reports/*.csv
+reports/*.png
+

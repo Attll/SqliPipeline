@@ -1,31 +1,18 @@
-"""Centralized configuration for the SQLi detection pipeline."""
-
-from dataclasses import dataclass, field
 from pathlib import Path
 
 
-@dataclass
-class Config:
-    # Paths
-    base_dir: Path = Path(__file__).resolve().parents[3]
-    raw_data_path: Path = field(init=False)
-    artifacts_dir: Path = field(init=False)
-    reports_dir: Path = field(init=False)
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+DATA_PATH = PROJECT_ROOT / "data" / "raw" / "sql_injection_dataset.csv"
+ARTIFACT_DIR = PROJECT_ROOT / "artifacts"
+REPORT_DIR = PROJECT_ROOT / "reports"
 
-    # Data
-    test_size: float = 0.2
-    random_state: int = 42
-    target_column: str = "label"
-    text_column: str = "query"
+QUERY_COLUMN = "Query"
+LABEL_COLUMN = "Label"
+POSITIVE_LABEL = 1
+NEGATIVE_LABEL = 0
+RANDOM_STATE = 42
 
-    # Model
-    model_name: str = "random_forest"
-    n_estimators: int = 100
-    max_depth: int = None
+MODEL_NAMES = ("random_forest", "logistic_regression", "naive_bayes")
+BEST_MODEL_NAME = "best_model.joblib"
+MODEL_METADATA_NAME = "model_metadata.json"
 
-    def __post_init__(self):
-        self.raw_data_path = self.base_dir / "data" / "raw" / "sql_injection_dataset.csv"
-        self.artifacts_dir = self.base_dir / "artifacts"
-        self.reports_dir = self.base_dir / "reports"
-        self.artifacts_dir.mkdir(parents=True, exist_ok=True)
-        self.reports_dir.mkdir(parents=True, exist_ok=True)

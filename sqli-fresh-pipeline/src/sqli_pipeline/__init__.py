@@ -1,3 +1,6 @@
-"""SQLi Pipeline - SQL Injection Detection Pipeline Package."""
+"""Fresh SQL injection detection pipeline."""
 
-__version__ = "0.1.0"
+from .predictor import SQLiPredictor
+
+__all__ = ["SQLiPredictor"]
+
